@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Chashmish's Birthday Quest 🎂</title>
+<style>
+*{box-sizing:border-box}body{margin:0;font-family:Arial,sans-serif;background:linear-gradient(135deg,#fff0f7,#eee7ff,#e5f8ff);color:#33253d;min-height:100vh}
+.screen{min-height:100vh;display:none;align-items:center;justify-content:center;padding:22px}.active{display:flex}
+.card{width:min(720px,94vw);padding:30px;text-align:center;background:#ffffffdf;border:2px solid white;border-radius:30px;box-shadow:0 15px 50px #6b4b8825}
+h1{font-size:clamp(35px,9vw,65px);margin:10px 0}h2{font-size:30px}.sub,.wish{font-size:18px;line-height:1.7}
+button{border:0;border-radius:18px;padding:14px 24px;margin:8px;background:#7c4dff;color:white;font-size:17px;font-weight:bold;cursor:pointer}
+.badge{display:inline-block;background:#ffe0ef;padding:8px 15px;border-radius:30px;font-weight:bold}
+.game{height:350px;position:relative;overflow:hidden;border-radius:25px;margin:18px 0;background:linear-gradient(#dff7ff,#fff0f7);border:2px dashed #c8a7e8}
+.star{position:absolute;font-size:35px;cursor:pointer;animation:f 1.5s infinite ease-in-out}
+@keyframes f{50%{transform:translateY(-10px) rotate(10deg)}}.player{position:absolute;bottom:20px;left:50%;font-size:55px;transform:translateX(-50%)}
+.progress{height:12px;background:#eee;border-radius:20px;overflow:hidden}.bar{height:100%;width:0;background:linear-gradient(90deg,#ff69b4,#7c4dff)}
+.cake{font-size:90px}.wish{text-align:left;background:#fff7fb;border-radius:22px;padding:20px}
+.conf{position:fixed;top:-20px;font-size:24px;animation:fall 3s linear forwards;pointer-events:none}@keyframes fall{to{transform:translateY(110vh) rotate(720deg);opacity:0}}
+</style></head>
+<body>
+<section id="one" class="screen active"><div class="card">
+<div class="badge">🎮 BIRTHDAY QUEST UNLOCKED</div>
+<h1>Hey, Chashmish! 👓💖</h1>
+<p class="sub">A tiny birthday game has been created specially for you!<br>Complete the quest to unlock your surprise. 😎</p>
+<button onclick="start()">START QUEST 🚀</button>
+<p>⚠️ Warning: excessive cuteness may occur 😂</p>
+</div></section>
+
+<section id="two" class="screen"><div class="card">
+<h2>⭐ Level 1: Catch 5 Stars</h2><p class="sub">Tap the stars before they disappear!</p>
+<b>Stars: <span id="score">0</span>/5</b>
+<div class="game" id="game"><div class="player">👧🏻</div></div>
+<button onclick="move()">MOVE CHARACTER 🎮</button>
+<div class="progress"><div class="bar" id="bar"></div></div>
+</div></section>
+
+<section id="three" class="screen"><div class="card">
+<div class="cake">🎂</div><h1>LEVEL COMPLETE! 🏆</h1>
+<p class="sub">You collected all the birthday stars!<br>The real surprise is unlocked… 👀✨</p>
+<button onclick="wish()">OPEN THE GIFT 🎁</button>
+</div></section>
+
+<section id="four" class="screen"><div class="card">
+<div class="badge">🎉 HAPPY BIRTHDAY 🎉</div>
+<h1>Chashmish ❤️</h1><h2>Many many more happy returns of the day, Shravani! 🎂✨</h2>
+<div class="wish">
+May you live a long, happy and beautiful life. 💗<br>
+May you achieve lots of success and make every dream of yours come true. 🌟<br>
+Keep smiling, keep being the amazing and proud girl you are, and always believe in yourself. 👑<br>
+May every new year bring you more happiness, confidence, adventures and unforgettable memories. 🥳<br><br>
+<strong>Happy 15th Birthday, Shravani! 🎂🎀</strong><br>
+Wishing you many, many more happy returns of the day! 💖
+</div>
+<button onclick="celebrate()">CELEBRATE! 🎊</button>
+</div></section>
+
+<script>
+let score=0;
+function show(id){document.querySelectorAll('.screen').forEach(x=>x.classList.remove('active'));document.getElementById(id).classList.add('active')}
+function start(){show('two');spawn()}
+function spawn(){if(score>=5)return;let s=document.createElement('div');s.className='star';s.textContent=['⭐','🌟','💖','✨'][Math.floor(Math.random()*4)];s.style.left=(8+Math.random()*84)+'%';s.style.top=(8+Math.random()*72)+'%';s.onclick=()=>{score++;document.getElementById('score').textContent=score;document.getElementById('bar').style.width=score*20+'%';s.remove();if(score>=5)setTimeout(()=>show('three'),400);else spawn()};document.getElementById('game').appendChild(s);setTimeout(()=>{if(s.parentNode){s.remove();if(score<5)spawn()}},2200)}
+function move(){document.querySelector('.player').style.left=(15+Math.random()*70)+'%'}
+function wish(){show('four');celebrate()}
+function celebrate(){for(let i=0;i<45;i++){let c=document.createElement('div');c.className='conf';c.textContent=['🎉','🎊','💖','✨','⭐','🎀'][Math.floor(Math.random()*6)];c.style.left=Math.random()*100+'vw';c.style.animationDelay=Math.random()*1.5+'s';document.body.appendChild(c);setTimeout(()=>c.remove(),4500)}}
+</script></body></html>
